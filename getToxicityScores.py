@@ -86,17 +86,22 @@ def main():
                 summaryScore = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
 
             # checking for errors returned from the API itself
-            except Error as excObj:
+            except OSError as excObj:
                 if str(excObj) == "COMMENT_TOO_LONG":
                     print("text is too long")
+                    summaryScore = 0
                 elif str(excObj) == "COMMENT_EMPTY":
                     print("text is empty")
+                    summaryScore = 0
                 elif str(excObj) == "NO_REQUESTED_ATTRIBUTES":
                     print("the attribute requested is not there")
+                    summaryScore = 0
                 elif str(excObj) == "LANGUAGE_NOT_SUPPORTED_BY_ATTRIBUTE":
                     print("language is not supported")
+                    summaryScore = 0
                 elif str(excObj) == "LANGUAGE_DETECTION_FAILED":
                     print("failed to detect the language")
+                    summaryScore = 0
 
             # any other error, we assign a value of Zero to the row
             except:
